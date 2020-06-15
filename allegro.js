@@ -373,10 +373,10 @@ function _progress_check()
 /// @param progress loading progress in 0.0 - 1.0 range
 function loading_bar(progress)
 {
-	rectfill(canvas,5,SCREEN_H-55,SCREEN_W-10,50,makecol(0,0,0));
-	rectfill(canvas,10,SCREEN_H-50,SCREEN_W-20,40,makecol(255,255,255));
-	rectfill(canvas,15,SCREEN_H-45,SCREEN_W-30,30,makecol(0,0,0));
-	rectfill(canvas,20,SCREEN_H-40,scaleclamp(progress,0,1,0,(SCREEN_W-40)),20,makecol(255,255,255));
+	// rectfill(canvas,5,SCREEN_H-55,SCREEN_W-10,50,makecol(0,0,0));
+	// rectfill(canvas,10,SCREEN_H-50,SCREEN_W-20,40,makecol(255,255,255));
+	// rectfill(canvas,15,SCREEN_H-45,SCREEN_W-30,30,makecol(0,0,0));
+	// rectfill(canvas,20,SCREEN_H-40,scaleclamp(progress,0,1,0,(SCREEN_W-40)),20,makecol(255,255,255));
 }
 
 /// Installs a handler to check if everything has downloaded. 
@@ -481,6 +481,7 @@ function install_keyboard(enable_keys)
 		pressed[c] = false;
 		released[c] = false;
 	}
+	var gameCanvas = document.querySelector("canvas");
 	document.addEventListener('keyup',_keyup);
 	document.addEventListener('keydown',_keydown);
 	_keyboard_installed = true;

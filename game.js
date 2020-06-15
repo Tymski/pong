@@ -1,7 +1,7 @@
-//I'm glad I see you there! :D
+// I'm glad to see you there! :D
 var player_x, player_y, player_vx, player_vy;
 var player_vx0, player_vy0;
-var player_width = 100, player_height=20;
+var player_width = 100, player_height = 20;
 var player_width0 = 100, player_height0 = 20;
  
 var points = 0;
@@ -26,13 +26,15 @@ var keyboard_control = true;
 function draw()
 {
 	
-	textout(canvas,font2, Math.floor(frames/3600.0/6.0/1.7) + ":" + Math.floor(frames/360.0/1.7) %60,550,30,24,makecol(190,240,180),makecol(50,50,50),1);
+	// print time
+	textout(canvas,font2, Math.floor(frames/3600.0) + ":" + (Math.floor(frames/60.0) % 60).toString().padStart(2,'0') ,550,30,24,makecol(190,240,180),makecol(50,50,50),1);
+
+	// print score
 	if(points<=500)textout(canvas,font2,"Score: " + points,10,30,24,makecol(190,240,180),makecol(50,50,50),1);
 	if(points>500&&points<1000){textout(canvas,font2,"Score: " + points + " wow!",10,30,24,makecol(190,240,180),makecol(50,50,50),1);}
 	if(points>=1000&&points<5000){textout(canvas,font2,"Amazing score: " + points,10,30,24,makecol(190,240,180),makecol(50,50,50),1);}
 	if(points>=5000&&points<9001){textout(canvas,font2,"Mad score: " + points + "",10,30,24,makecol(190,240,180),makecol(50,50,50),1);}
 	if(points>=9001){textout(canvas,font2,"It's over 9000!",10,30,24,makecol(190,240,180),makecol(50,50,50),1);}
-	
 	
 	for(var i = 0; i < objects_count; i++){
 		var o = objects[i];
@@ -133,6 +135,7 @@ function interpolacja(px, ox)
 
 function update()
 {
+	frames++;
 	for(var i = 0; i < objects_count; i++){
 		
 		text[i]--;
@@ -148,13 +151,14 @@ function update()
 			o.vy += 0.1;
 			o.x += o.vx;
 		}
-		frames++;
 		
 		o.bounce--;
 		if( ((o.x >= SCREEN_W - o.width/2) || (o.x < o.width/2)) && o.bounce < 0 )
 		{
 			o.vx *= -1;
 			o.bounce = 4;
+			o.x = Math.min(o.x, SCREEN_W - o.width/2);
+			o.x = Math.max(o.x, o.width/2);
 		}
 		
 		if (o.y >= SCREEN_H + o.height/2){
@@ -194,7 +198,7 @@ function update()
 		
 		
 		if( Math.abs(o.x - player_x) < (player_width/2 + o.width/2)
-		&& Math.abs(o.y-player_y) < (player_height/2 + o.height/2))
+			&& Math.abs(o.y-player_y) < (player_height/2 + o.height/2))
 		{
 			o.gravity = true;
 			if(o.collision < 0){
@@ -235,14 +239,14 @@ function update()
 	if(player_width<player_width0){player_width = player_width0;}
 	if(player_width>player_width0){player_width -= 0.04;}
 	
-	//if (key[KEY_LEFT] || (mouse_b&1 && mouse_x < SCREEN_W/2)) player_x-=8;
-	//if (key[KEY_RIGHT] || (mouse_b&1 && mouse_x >= SCREEN_W/2) ) player_x+=8;
+	//if ((key[KEY_LEFT] || key[KEY_A]) || (mouse_b&1 && mouse_x < SCREEN_W/2)) player_x-=8;
+	//if ((key[KEY_RIGHT] || key[KEY_D]) || (mouse_b&1 && mouse_x >= SCREEN_W/2) ) player_x+=8;
 	
-	//if (key[KEY_LEFT] || (mouse_pressed && mouse_x < SCREEN_W/2)) player_x-=8;
-	//if (key[KEY_RIGHT] || (mouse_pressed && mouse_x >= SCREEN_W/2) ) player_x+=8;
+	//if ((key[KEY_LEFT] || key[KEY_A]) || (mouse_pressed && mouse_x < SCREEN_W/2)) player_x-=8;
+	//if ((key[KEY_RIGHT] || key[KEY_D]) || (mouse_pressed && mouse_x >= SCREEN_W/2) ) player_x+=8;
 	
-	//if (key[KEY_LEFT] || (/*mouse_pressed &&*/ mouse_x < SCREEN_W/3.0)) player_x-=8;
-	//if (key[KEY_RIGHT] || (/*mouse_pressed && */mouse_x >= SCREEN_W*2.0/3.0) ) player_x+=8;
+	//if ((key[KEY_LEFT] || key[KEY_A]) || (/*mouse_pressed &&*/ mouse_x < SCREEN_W/3.0)) player_x-=8;
+	//if ((key[KEY_RIGHT] || key[KEY_D]) || (/*mouse_pressed && */mouse_x >= SCREEN_W*2.0/3.0) ) player_x+=8;
 	/*
 		if(mouse_pressed)mouse_target=mouse_x;
 		if ( mouse_target >= player_x ) player_x+=8;
@@ -260,16 +264,17 @@ function update()
 	
 	/*
 		if(mouse_pressed||mouse_b&1)mouse_target=mouse_x;
-		if (key[KEY_LEFT] || (mouse_target - player_x >= 8.0) ) player_x+=8.0;
-		else if (key[KEY_RIGHT] || (mouse_target - player_x <= -8.0) ) player_x-=8.0;
+		if ((key[KEY_LEFT] || key[KEY_A]) || (mouse_target - player_x >= 8.0) ) player_x+=8.0;
+		else if ((key[KEY_RIGHT] || key[KEY_D]) || (mouse_target - player_x <= -8.0) ) player_x-=8.0;
 		else player_x=mouse_target;
 	*/
-	if(key[KEY_LEFT] || key[KEY_RIGHT]) keyboard_control = true;
+	if((key[KEY_LEFT] || key[KEY_A]) || (key[KEY_RIGHT] || key[KEY_D])) keyboard_control = true;
 	if(mouse_pressed||mouse_b&1){mouse_target=mouse_x;keyboard_control=false;}
-	if ((key[KEY_RIGHT] && keyboard_control) || ((mouse_target - player_x >= 8.0) && keyboard_control == false ) ) player_x+=8.0;
-	else if ( (key[KEY_LEFT] && keyboard_control)|| ((mouse_target - player_x <= -8.0)&& keyboard_control == false) ) player_x-=8.0;
+	if (((key[KEY_RIGHT] || key[KEY_D]) && keyboard_control) || ((mouse_target - player_x >= 8.0) && keyboard_control == false ) ) player_x+=8.0;
+	else if ( ((key[KEY_LEFT] || key[KEY_A]) && keyboard_control)|| ((mouse_target - player_x <= -8.0)&& keyboard_control == false) ) player_x-=8.0;
 	else if (keyboard_control == false) player_x=mouse_target;
-	
+	player_x = Math.min(player_x, SCREEN_W + player_width/2 - player_width0);
+	player_x = Math.max(player_x,        0 - player_width/2 + player_width0);
 
 	
 	
@@ -294,3 +299,4 @@ function main()
 	return 0;
 }
 END_OF_MAIN();
+
