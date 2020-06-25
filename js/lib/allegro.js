@@ -1256,7 +1256,8 @@ function create_font(family)
 /// @param width outline width
 function textout(bitmap,f,s,x,y,size,colour,outline,width)
 {
-	bitmap.context.font = size.toFixed() + 'px ' + f.name ;
+	// bitmap.context.font = size.toFixed + 'px ' + f.name ;
+	bitmap.context.font = size + 'px ' + f.name ;
 	bitmap.context.textAlign = "left";
 	_fillstyle(bitmap,colour);
 	bitmap.context.fillText(s,x,y);
