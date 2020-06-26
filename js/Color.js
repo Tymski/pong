@@ -8,19 +8,54 @@ export default class Color {
         this.g = g;
         this.b = b;
         this.a = a;
+        return this;
+    }
+
+    set(color) {
+        this.r = color.r;
+        this.g = color.g;
+        this.b = color.b;
+        this.a = color.a;
+        return this;
     }
 
     add(color) {
         this.r += color.r;
         this.g += color.g;
         this.b += color.b;
+        return this;
     }
 
-    setAlpha(a){
+    substract(color) {
+        this.r -= color.r;
+        this.g -= color.g;
+        this.b -= color.b;
+        return this;
+    }
+
+    multiply(scalar) {
+        this.r *= scalar;
+        this.g *= scalar;
+        this.b *= scalar;
+        return this;
+    }
+
+    divide(scalar) {
+        this.r /= scalar;
+        this.g /= scalar;
+        this.b /= scalar;
+        return this;
+    }
+
+    setAlpha(a) {
         this.a = a;
     }
 
     makecol() {
         return makecol(this.r, this.g, this.b, this.a);
+    }
+
+    copy() {
+        return new Color(this.r, this.g, this.b, this.a);
     }
 }
