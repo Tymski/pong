@@ -2,6 +2,7 @@ import Player from './Player.js';
 import Interface from './Interface.js';
 import Boxes from './boxes/Boxes.js';
 import MirrorPad from './MirrorPad.js';
+import Pause from './Pause.js';
 
 class Game {
     constructor() {
@@ -20,6 +21,7 @@ class Game {
         this.frames = 0;
         this.boxes.spawn();
         this.mirrorPad = new MirrorPad();
+        this.pause = new Pause();
         window.setInterval(() => {
             _fillstyle(canvas, makecol(255, 255, 255, this.clearAlpha));
             canvas.context.fillRect(0, 0, canvas.w, canvas.h);
@@ -29,6 +31,8 @@ class Game {
     }
 
     update() {
+        this.pause.update();
+        if (this.pause.paused) return;
         this.player.update();
         this.mirrorPad.update();
         this.boxes.update();
@@ -44,6 +48,7 @@ class Game {
         this.mirrorPad.render();
         this.player.render();
         this.interface.render();
+        this.pause.render();
     }
 }
 

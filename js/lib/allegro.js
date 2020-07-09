@@ -1280,7 +1280,7 @@ function textout(bitmap,f,s,x,y,size,colour,outline,width)
 /// @param width outline width
 function textout_centre(bitmap,f,s,x,y,size,colour,outline,width)
 {
-	bitmap.context.font = size.toFixed() + 'px ' + f.name;
+	bitmap.context.font = size + 'px ' + f.name;
 	bitmap.context.textAlign = "center";
 	_fillstyle(bitmap,colour);
 	bitmap.context.fillText(s,x,y);
