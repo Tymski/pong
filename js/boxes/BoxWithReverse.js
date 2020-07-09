@@ -4,7 +4,7 @@ export default class BoxWithReverse {
     constructor() {
         this.probability = 0.015;
         this.text = '↑↓';
-        this.fontSize = 30 * px;
+        this.fontSize = 30;
         this.colors = {};
         this.colors.base = new Color(60, 40, 25);
         this.colors.target = new Color(200, 0, 230);
@@ -18,8 +18,8 @@ export default class BoxWithReverse {
         });
     }
     animation(box) {
-        box.position.y += Math.sin(0.5 * box.wiggle) * px;
-        box.width.current = 23 * px;
-        box.height.current = 23 * px;
+        box.position.y += Math.sin(0.5 * box.wiggle);
+        box.width.current = 23;
+        box.height.current = 23;
     }
 }

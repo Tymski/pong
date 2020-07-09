@@ -6,7 +6,7 @@ import Pause from './Pause.js';
 
 class Game {
     constructor() {
-        allegro_init_all('game_canvas', 640 * px, 480 * px);
+        allegro_init_all('game_canvas', WIDTH, HEIGHT);
         window.font2 = load_font('Bullpen3D.ttf');
         this.points = 0;
         this.frames = 0;
@@ -29,6 +29,7 @@ class Game {
             this.render();
         }, BPS_TO_TIMER(60));
         document.getElementById('game_loading').remove();
+        fitGameInBody();
     }
 
     update() {

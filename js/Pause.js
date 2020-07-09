@@ -1,7 +1,7 @@
 export default class Pause {
     constructor() {
         this.paused = false;
-        this.textSize = 35 * px;
+        this.textSize = 35;
         this.frames = 0;
     }
 
@@ -25,11 +25,11 @@ export default class Pause {
         if (this.unpauseInput()) {
             this.paused = false;
         }
-        this.textSize = (35 + 5 * Math.sin(this.frames / 10)) * px;
+        this.textSize = (35 + 5 * Math.sin(this.frames / 10));
     }
 
     render() {
         if (!this.paused) return;
-        textout_centre(canvas, font2, 'Paused', SCREEN_W / 2, SCREEN_H / 2, this.textSize, makecol(255, 0, 0, 150), makecol(0, 0, 0, 150), 1 * px);
+        textout_centreScaled(canvas, font2, 'Paused', SCREEN_W / 2, SCREEN_H / 2, this.textSize, makecol(255, 0, 0, 150), makecol(0, 0, 0, 150), 1);
     }
 }

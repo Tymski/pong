@@ -5,7 +5,7 @@ import FloatingText from '../FloatingText.js';
 export default class Box extends Rectangle {
     constructor(width, height) {
         super(width, height);
-        this.defaultSize = 20 * px;
+        this.defaultSize = 20;
         this.floatingText = new FloatingText();
         this.type = game.boxes.nextBoxType();
         this.setValues(width, height);
@@ -13,8 +13,8 @@ export default class Box extends Rectangle {
     }
 
     setValues(width = this.defaultSize, height = this.defaultSize) {
-        this.position.x = (rand() % (SCREEN_W - 20 * px)) + 10 * px;
-        this.position.y = (rand() % 2000 * px) - 2010 * px;
+        this.position.x = (rand() % (SCREEN_W - 20)) + 10;
+        this.position.y = (rand() % 2000) - 2010;
         this.active = true;
         this.velocity = new Vector(0, 0);
         this.width.base = width;
@@ -22,7 +22,7 @@ export default class Box extends Rectangle {
         this.height.base = height;
         this.height.current = height;
         this.useGravity = false;
-        this.gravity = 0.1 * px;
+        this.gravity = 0.1;
         this.playerCollisionCooldown = 0;
         this.hits = 0;
         this.explode = this.type.bouncesToGetBonus;
@@ -32,19 +32,19 @@ export default class Box extends Rectangle {
         this.colors.base = this.type.colors.base;
         this.colors.current = this.colors.base.copy();
         this.colors.target = this.type.colors.target;
-        this.colors.step = this.colors.target.copy().substract(this.colors.base).divide(this.explode);  
+        this.colors.step = this.colors.target.copy().substract(this.colors.base).divide(this.explode);
     }
 
     render() {
         if (this.active) {
-            rectfill(canvas, this.position.x - this.width.current / 2, this.position.y - this.height.current / 2, this.width.current, this.height.current, this.colors.current.makecol()); // makecol(100,50,70)
+            rectfillScaled(canvas, this.position.x - this.width.current / 2, this.position.y - this.height.current / 2, this.width.current, this.height.current, this.colors.current.makecol()); // makecol(100,50,70)
         }
 
         if (!this.useGravity) {
             // Render fill
-            rectfill(canvas, this.position.x - this.width.current / 2, this.position.y - this.height.current / 2, this.width.current, this.height.current, makecol(132, 232, 167, game.fallingBoxFillAlpha));
+            rectfillScaled(canvas, this.position.x - this.width.current / 2, this.position.y - this.height.current / 2, this.width.current, this.height.current, makecol(132, 232, 167, game.fallingBoxFillAlpha));
             // Render border
-            rect(canvas, this.position.x - this.width.current / 2, this.position.y - this.height.current / 2, this.width.current, this.height.current, makecol(34, 177, 76), 3 * px);
+            rectScaled(canvas, this.position.x - this.width.current / 2, this.position.y - this.height.current / 2, this.width.current, this.height.current, makecol(34, 177, 76), 3);
         }
 
         this.floatingText.render();
@@ -52,7 +52,7 @@ export default class Box extends Rectangle {
 
     update() {
         if (!this.useGravity && this.active) {
-            this.position.y += 3 * px;
+            this.position.y += 3;
         } else {
             this.position.y += this.velocity.y;
             this.velocity.y += this.gravity;
@@ -98,8 +98,8 @@ export default class Box extends Rectangle {
 
     velocityAfterPadBounce(positionX) {
         var velocity = (this.position.x - positionX) / 20;
-        if (velocity > 6 * px) velocity = 6 * px;
-        if (velocity < -6 * px) velocity = -6 * px;
+        if (velocity > 6) velocity = 6;
+        if (velocity < -6) velocity = -6;
         return velocity;
     }
 
@@ -136,7 +136,7 @@ export default class Box extends Rectangle {
         if (this.hits > this.explode) {
             this.collect();
         }
-        this.velocity.y = -7.78 * px - 0.4 * frand() * frand() * px;
+        this.velocity.y = -7.78 - 0.4 * frand() * frand();
     }
 
     collect() {

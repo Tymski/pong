@@ -21,6 +21,7 @@ body {
     -webkit-box-shadow: 0px 0px 40px -12px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 0px 40px -12px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 0px 40px -12px rgba(0, 0, 0, 0.75);
+    touch-action: none;
 }
 
 .loading {
@@ -29,6 +30,7 @@ body {
     align-items: center;
     text-align: center;
     margin: auto;
+    touch-action: none;
 }
 
 .hidden {

@@ -33,18 +33,18 @@ export default class Interface {
         else if (points <= 9000) scoreText = 'Mad score: ';
         else scoreText = "It's over 9000";
 
-        if (points <= 9000) textout(canvas, font2, scoreText + points, 10 * px, 30 * px, 24 * px, this.colors.fill.makecol(), this.colors.outline.makecol(), 1 * px);
-        else textout(canvas, font2, "It's over 9000!", 10 * px, 30 * px, 24 * px, this.colors.fill.makecol(), this.colors.outline.makecol(), 1 * px);
+        if (points <= 9000) textoutScaled(canvas, font2, scoreText + points, 10, 30, 24, this.colors.fill.makecol(), this.colors.outline.makecol(), 1);
+        else textoutScaled(canvas, font2, "It's over 9000!", 10, 30, 24, this.colors.fill.makecol(), this.colors.outline.makecol(), 1);
     }
 
     renderTimer() {
         var timerString = Math.floor(game.frames / 3600.0) + ':' + (Math.floor(game.frames / 60.0) % 60).toString().padStart(2, '0');
-        textout(canvas, font2, timerString, SCREEN_W - 10 * px - timerString.length * 15 * px, 30 * px, 24 * px, this.colors.fill.makecol(), this.colors.outline.makecol(), 1 * px);
+        textoutScaled(canvas, font2, timerString, SCREEN_W - 10 - timerString.length * 15, 30, 24, this.colors.fill.makecol(), this.colors.outline.makecol(), 1);
     }
 
     renderBoxesCounter() {
         var boxesText = 'Boxes: ' + game.boxes.boxes.length + '/' + 20;
-        if (this.alpha > 0) textout(canvas, font2, boxesText, 10 * px, 60 * px, 19 * px, this.colors.fill.makecol(), this.colors.box.makecol(), 0);
+        if (this.alpha > 0) textoutScaled(canvas, font2, boxesText, 10, 60, 19, this.colors.fill.makecol(), this.colors.box.makecol(), 0);
     }
 
     update() {

@@ -4,7 +4,7 @@ export default class BoxWithBox {
     constructor() {
         this.probability = 0.1;
         this.text = '⬜';
-        this.fontSize = 20 * px;
+        this.fontSize = 20;
         this.colors = {};
         this.colors.base = new Color(100, 200, 115);
         this.colors.target = new Color(60, 50, 40);
@@ -23,7 +23,7 @@ export default class BoxWithBox {
         if (this.spawnedSoFar >= this.boxesToSpawn) this.probability = 0;
     }
     animation(box) {
-        box.position.y += Math.sin(0.5 * box.wiggle) * px;
-        box.height.current = box.width.base + 10 * Math.abs(Math.sin(0.1 * box.wiggle) * px);
+        box.position.y += Math.sin(0.5 * box.wiggle);
+        box.height.current = box.width.base + 10 * Math.abs(Math.sin(0.1 * box.wiggle));
     }
 }

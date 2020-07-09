@@ -3,14 +3,16 @@
 
 <head>
 	<meta charset="utf-8">
+	<meta name='viewport' content='width=640, initial-scale=1.0, maximum-scale=1, minimum-scale=1, user-scalable=no'>
 	<title>Pong</title>
 	<script src="js/lib/allegro.js" defer></script>
+	<script src="js/lib/allegro_extension.js" defer></script>
 	<script src="js/render.js" defer></script>
 	<script src="js/Game.js" type="module" defer></script>
 	<link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body id="body">
 	<main>
 		<canvas id="game_canvas" class="game" width="640px" height="480px"></canvas>
 		<div id="game_loading" class="overlay loading">

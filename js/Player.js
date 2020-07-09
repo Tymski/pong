@@ -4,44 +4,46 @@ import Rectangle from './Rectangle.js';
 export default class Player extends Rectangle {
     constructor() {
         super();
-        this.position = new Vector(SCREEN_W / 2, SCREEN_H - 50 * px);
+        this.position = new Vector(SCREEN_W / 2, SCREEN_H - 50);
         this.speed = {};
-        this.speed.base = 8 * px;
+        this.speed.base = 8;
         this.speed.current = this.speed.base;
-        this.speed.deceleration = 0.005 * px;
-        this.speed.max = 20 * px;
+        this.speed.deceleration = 0.005;
+        this.speed.max = 20;
         this.width = {};
-        this.width.base = 100 * px;
+        this.width.base = 100;
         this.width.current = this.width.base;
-        this.height.base = 20 * px;
-        this.height.current = 20 * px;
+        this.height.base = 20;
+        this.height.current = 20;
         this.colors = {};
         this.colors.base = makecol(0, 0, 0);
         this.colors.extension = makecol(20, 20, 20);
         this.input = {};
         this.input.right = () => key[KEY_RIGHT] || key[KEY_D];
         this.input.left = () => key[KEY_LEFT] || key[KEY_A];
-        this.input.mouseTarget = 350 * px;
+        this.input.mouseTarget = 350;
         this.input.keyboardControl = true;
     }
 
+    resize() {}
+
     render() {
         // Render player pad extension
-        rectfill(canvas, this.position.x - this.width.current / 2, this.position.y - this.height.current / 2, this.width.current, this.height.current, this.colors.extension);
+        rectfillScaled(canvas, this.position.x - this.width.current / 2, this.position.y - this.height.current / 2, this.width.current, this.height.current, this.colors.extension);
         // Render player pad
-        rectfill(canvas, this.position.x - this.width.base / 2, this.position.y - this.height.current / 2, this.width.base, this.height.current, this.colors.base);
+        rectfillScaled(canvas, this.position.x - this.width.base / 2, this.position.y - this.height.current / 2, this.width.base, this.height.current, this.colors.base);
 
         if (this.input.keyboardControl == false) {
             // Render mouse target dot on this pad
-            rectfill(canvas, this.position.x - 5 * px, this.position.y - 5 * px, 10 * px, 10 * px, makecol(50, 50, 50));
+            rectfillScaled(canvas, this.position.x - 5, this.position.y - 5, 10, 10, makecol(50, 50, 50));
             // Render mouse target dot
-            rectfill(canvas, this.input.mouseTarget - 5 * px, this.position.y - 5 * px, 10 * px, 10 * px, makecol(150, 150, 150));
+            rectfillScaled(canvas, this.input.mouseTarget - 5, this.position.y - 5, 10, 10, makecol(150, 150, 150));
         }
     }
 
     update() {
         // Shrink (remove the expand buff)
-        this.width.current -= 0.035 * px + (this.width.current - this.width.base) * 0.0001;
+        this.width.current -= 0.035 + (this.width.current - this.width.base) * 0.0001;
         this.width.current = Math.max(this.width.current, this.width.base);
 
         // Slow down (remove the speed buff)
@@ -51,7 +53,7 @@ export default class Player extends Rectangle {
 
         if (this.input.right() || this.input.left()) this.input.keyboardControl = true;
         if (mouse_b & 1) {
-            this.input.mouseTarget = mouse_x;
+            this.input.mouseTarget = mouse_x / px;
             this.input.keyboardControl = false;
         }
 

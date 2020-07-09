@@ -4,7 +4,7 @@ export default class BoxWithPoints {
     constructor() {
         this.probability = 1; // Default Box
         this.text = '+15';
-        this.fontSize = 17 * px;
+        this.fontSize = 17;
         this.colors = {};
         this.colors.base = new Color(200, 200, 200);
         this.colors.target = new Color(85, 60, 75);
@@ -14,8 +14,8 @@ export default class BoxWithPoints {
         game.points += 15;
     }
     animation(box) {
-        box.position.x += Math.sin(0.5 * box.wiggle) * px;
-        box.width.current = 22 * px;
-        box.height.current = 22 * px;
+        box.position.x += Math.sin(0.5 * box.wiggle);
+        box.width.current = 22;
+        box.height.current = 22;
     }
 }

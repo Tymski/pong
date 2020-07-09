@@ -16,7 +16,7 @@ export default class Rectangle {
     }
 
     render() {
-        rectfill(
+        rectfillScaled(
             canvas,
             this.position.x - this.width.current / 2,
             this.position.y - this.height.current / 2, 
@@ -34,9 +34,8 @@ export default class Rectangle {
     }
 
     static render(rectangle, color){
-        
         color = color || rectangle.colors.current.makecol();
-        rectfill(
+        rectfillScaled(
             canvas,
             rectangle.position.x - rectangle.width.current / 2,
             rectangle.position.y - rectangle.height.current / 2, 
