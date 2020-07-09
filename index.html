@@ -11,7 +11,12 @@
 </head>
 
 <body>
-	<canvas id="game_canvas" class="game" width="640px" height="480px"></canvas>
+	<main>
+		<canvas id="game_canvas" class="game" width="640px" height="480px"></canvas>
+		<div id="game_loading" class="overlay loading">
+			<div class="loader"></div>
+		</div>
+	</main>
 	<script>
 		window.addEventListener("click", this.focus);
 	</script>

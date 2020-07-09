@@ -28,6 +28,7 @@ class Game {
             this.update();
             this.render();
         }, BPS_TO_TIMER(60));
+        document.getElementById('game_loading').remove();
     }
 
     update() {

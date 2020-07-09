@@ -1,6 +1,6 @@
 export default class Pause {
     constructor() {
-        this.paused = true;
+        this.paused = false;
         this.textSize = 35 * px;
         this.frames = 0;
     }
