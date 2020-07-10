@@ -58,4 +58,10 @@ export default class Color {
     copy() {
         return new Color(this.r, this.g, this.b, this.a);
     }
+
+    invert() {
+        this.r = 255 - this.r;
+        this.g = 255 - this.g;
+        this.b = 255 - this.b;
+    }
 }
