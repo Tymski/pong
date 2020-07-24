@@ -18,6 +18,10 @@ function install_pointer() {
     game_canvas.addEventListener('pointerdown', pointerDown);
     game_canvas.addEventListener('pointermove', pointerMove);
     game_canvas.addEventListener('pointerup', pointerUp);
+    game_canvas.addEventListener('touchstart', preventDefault);
+    game_canvas.addEventListener('touchmove', preventDefault);
+    game_canvas.addEventListener('touchend', preventDefault);
+    game_canvas.addEventListener('touchcancel', preventDefault);
 
     pointerIsDown = false;
 
@@ -46,4 +50,12 @@ function uninstall_pointer() {
     game_canvas.removeEventListener('pointerdown', pointerDown);
     game_canvas.removeEventListener('pointermove', pointerMove);
     game_canvas.removeEventListener('pointerup', pointerUp);
+    game_canvas.removeEventListener('touchstart', preventDefault);
+    game_canvas.removeEventListener('touchmove', preventDefault);
+    game_canvas.removeEventListener('touchend', preventDefault);
+    game_canvas.removeEventListener('touchcancel', preventDefault);
+}
+
+function preventDefault(event) {
+    event.preventDefault();
 }

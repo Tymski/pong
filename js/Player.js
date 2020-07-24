@@ -23,7 +23,7 @@ export default class Player extends Rectangle {
         this.input.keyboardLeft = () => key[KEY_LEFT] || key[KEY_A];
         this.input.mousePressed = () => mouse_b & 1;
         this.input.mouseTarget = 350;
-        this.input.keyboardControl = true;
+        this.input.mouseControl = true;
     }
 
     resize() {}
@@ -34,7 +34,7 @@ export default class Player extends Rectangle {
         // Render player pad
         rectfillScaled(canvas, this.position.x - this.width.base / 2, this.position.y - this.height.current / 2, this.width.base, this.height.current, this.colors.base);
 
-        if (this.input.keyboardControl == false) {
+        if (this.input.mouseControl) {
             // Render mouse target dot on this pad
             rectfillScaled(canvas, this.position.x - 5, this.position.y - 5, 10, 10, makecol(50, 50, 50));
             // Render mouse target dot
@@ -64,16 +64,16 @@ export default class Player extends Rectangle {
         let horizontal = gamepadX;
         if (this.input.keyboardRight()) horizontal = 1;
         if (this.input.keyboardLeft()) horizontal = -1;
-        if (this.input.mousePressed() || !this.input.keyboardControl) {
+        if (this.input.mousePressed() || this.input.mouseControl) {
             horizontal = this.input.mouseTarget - this.position.x;
             if (this.speed.current != 0) horizontal /= this.speed.current;
             horizontal = Math.max(horizontal, -1);
             horizontal = Math.min(horizontal, 1);
         }
 
-        if (this.input.keyboardRight() || this.input.keyboardLeft()) this.input.keyboardControl = true;
+        if (this.input.keyboardRight() || this.input.keyboardLeft() || getGamepadX() != 0) this.input.mouseControl = false;
         if (this.input.mousePressed()) {
-            this.input.keyboardControl = false;
+            this.input.mouseControl = true;
             this.input.mouseTarget = mouse_x / px;
         }
 
