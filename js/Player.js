@@ -19,8 +19,9 @@ export default class Player extends Rectangle {
         this.colors.base = makecol(0, 0, 0);
         this.colors.extension = makecol(20, 20, 20);
         this.input = {};
-        this.input.right = () => key[KEY_RIGHT] || key[KEY_D];
-        this.input.left = () => key[KEY_LEFT] || key[KEY_A];
+        this.input.keyboardRight = () => key[KEY_RIGHT] || key[KEY_D];
+        this.input.keyboardLeft = () => key[KEY_LEFT] || key[KEY_A];
+        this.input.mousePressed = () => mouse_b & 1;
         this.input.mouseTarget = 350;
         this.input.keyboardControl = true;
     }
@@ -51,19 +52,31 @@ export default class Player extends Rectangle {
         // Max speed
         this.speed.current = Math.min(this.speed.current, this.speed.max);
 
-        if (this.input.right() || this.input.left()) this.input.keyboardControl = true;
-        if (mouse_b & 1) {
-            this.input.mouseTarget = mouse_x / px;
-            this.input.keyboardControl = false;
-        }
-
-        // Apply player movement
-        if ((this.input.right() && this.input.keyboardControl) || (this.input.mouseTarget - this.position.x >= this.speed.current && this.input.keyboardControl == false)) this.position.x += this.speed.current;
-        else if ((this.input.left() && this.input.keyboardControl) || (this.input.mouseTarget - this.position.x <= -this.speed.current && this.input.keyboardControl == false)) this.position.x -= this.speed.current;
-        else if (this.input.keyboardControl == false) this.position.x = this.input.mouseTarget;
+        this.handleInput();
 
         // Clamp player position
         this.position.x = Math.min(this.position.x, SCREEN_W + this.width.current / 2 - this.width.base);
         this.position.x = Math.max(this.position.x, 0 - this.width.current / 2 + this.width.base);
+    }
+
+    handleInput() {
+        let gamepadX = getGamepadX();
+        let horizontal = gamepadX;
+        if (this.input.keyboardRight()) horizontal = 1;
+        if (this.input.keyboardLeft()) horizontal = -1;
+        if (this.input.mousePressed() || !this.input.keyboardControl) {
+            horizontal = this.input.mouseTarget - this.position.x;
+            if (this.speed.current != 0) horizontal /= this.speed.current;
+            horizontal = Math.max(horizontal, -1);
+            horizontal = Math.min(horizontal, 1);
+        }
+
+        if (this.input.keyboardRight() || this.input.keyboardLeft()) this.input.keyboardControl = true;
+        if (this.input.mousePressed()) {
+            this.input.keyboardControl = false;
+            this.input.mouseTarget = mouse_x / px;
+        }
+
+        this.position.x += this.speed.current * horizontal;
     }
 }

@@ -14,6 +14,7 @@ export default class Pause {
         if (key[KEY_ENTER]) return true;
         if (key[KEY_ENTER_PAD]) return true;
         if (mouse_b & 1) return true;
+        if (getGamepadX() != 0) return true;
         return false;
     }
 
@@ -25,7 +26,7 @@ export default class Pause {
         if (this.unpauseInput()) {
             this.paused = false;
         }
-        this.textSize = (35 + 5 * Math.sin(this.frames / 10));
+        this.textSize = 35 + 5 * Math.sin(this.frames / 10);
     }
 
     render() {
