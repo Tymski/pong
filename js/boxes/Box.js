@@ -32,7 +32,7 @@ export default class Box extends Rectangle {
         this.colors.base = this.type.colors.base;
         this.colors.current = this.colors.base.copy();
         this.colors.target = this.type.colors.target;
-        this.colors.step = this.colors.target.copy().substract(this.colors.base).divide(this.explode);
+        this.colors.step = this.colors.target.copy().subtract(this.colors.base).divide(this.explode);
     }
 
     render() {

@@ -26,7 +26,7 @@ export default class Color {
         return this;
     }
 
-    substract(color) {
+    subtract(color) {
         this.r -= color.r;
         this.g -= color.g;
         this.b -= color.b;

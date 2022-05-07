@@ -1,6 +1,6 @@
 px = 1; // Scale of a "pixel"
 
-// Original dimentions
+// Original dimensions
 const WIDTH = 640;
 const HEIGHT = 480;
 

@@ -34,12 +34,12 @@ export default class Boxes {
         this.r = Math.random();
         for (let i = 0; i < this.boxTypes.length; i++) {
             const boxType = this.boxTypes[i];
-            if (this.checkProbablility(boxType)) return boxType;
+            if (this.checkProbability(boxType)) return boxType;
         }
         return this.defaultBoxType;
     }
 
-    checkProbablility(boxType) {
+    checkProbability(boxType) {
         if (this.r < boxType.probability) {
             return true;
         } else {
