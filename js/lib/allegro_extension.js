@@ -59,3 +59,17 @@ function uninstall_pointer() {
 function preventDefault(event) {
     event.preventDefault();
 }
+
+// Add a color map to fillstyle to avoid making a lot of the same strings.
+const colorCache = new Map();
+_fillstyle = function (bitmap, colour) {
+    if (bitmap._lastColour === colour) return;
+    let rgbaStr = colorCache.get(colour);
+    if (rgbaStr === undefined) {
+        rgbaStr = 'rgba(' + getr(colour) + ',' + getg(colour) + ',' + getb(colour) + ',' + getaf(colour) + ')';
+        if (colorCache.size >= 40000) colorCache.clear();
+        colorCache.set(colour, rgbaStr);
+    }
+    bitmap.context.fillStyle = rgbaStr;
+    bitmap._lastColour = colour;
+}
