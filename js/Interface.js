@@ -1,4 +1,5 @@
 import Color from './Color.js';
+
 export default class Interface {
     constructor() {
         this.colors = {};
@@ -7,6 +8,8 @@ export default class Interface {
         this.colors.box = new Color(100, 100, 100, 100);
         this.alpha = 0;
         this.boxAlphaChange = -5;
+        this.scoreText = "";
+        this.previousPoints = -1;
     }
 
     showBoxCounter() {
@@ -24,17 +27,18 @@ export default class Interface {
     }
 
     renderScore() {
-        var scoreText;
         var points = game.points;
 
-        if (points <= 500) scoreText = 'Score: ';
-        else if (points < 1000) scoreText = 'Nice score: ';
-        else if (points < 5000) scoreText = 'Amazing score: ';
-        else if (points <= 9000) scoreText = 'Mad score: ';
-        else scoreText = "It's over 9000";
+        if (this.previousPoints != points) {
+            if (points <= 500) this.scoreText = 'Score: ' + points;
+            else if (points < 1000) this.scoreText = 'Nice score: ' + points;
+            else if (points < 5000) this.scoreText = 'Amazing score: ' + points;
+            else if (points <= 9000) this.scoreText = 'Mad score: ' + points;
+            else this.scoreText = "It's over 9000";
+            this.previousPoints = points;
+        }
 
-        if (points <= 9000) textoutScaled(canvas, font2, scoreText + points, 10, 30, 24, this.colors.fill.makecol(), this.colors.outline.makecol(), 1);
-        else textoutScaled(canvas, font2, "It's over 9000!", 10, 30, 24, this.colors.fill.makecol(), this.colors.outline.makecol(), 1);
+        textoutScaled(canvas, font2, this.scoreText, 10, 30, 24, this.colors.fill.makecol(), this.colors.outline.makecol(), 1);
     }
 
     renderTimer() {
