@@ -1,6 +1,7 @@
 import Rectangle from '../Rectangle.js';
 import Vector from '../Vector.js';
 import FloatingText from '../FloatingText.js';
+import Color from '../Color.js';
 
 export default class Box extends Rectangle {
     constructor(width, height) {
@@ -8,6 +9,8 @@ export default class Box extends Rectangle {
         this.defaultSize = 20;
         this.floatingText = new FloatingText();
         this.type = game.boxes.nextBoxType();
+        this.velocity = new Vector(0, 0);
+        this.colors.step = new Color();
         this.setValues(width, height);
         this.position.y = this.position.y * 0.8 - this.height.current;
     }
@@ -16,7 +19,7 @@ export default class Box extends Rectangle {
         this.position.x = (rand() % (SCREEN_W - 20)) + 10;
         this.position.y = (rand() % 2000) - 2010;
         this.active = true;
-        this.velocity = new Vector(0, 0);
+        this.velocity.setXY(0, 0);
         this.width.base = width;
         this.width.current = this.width.base;
         this.height.base = height;
@@ -30,9 +33,9 @@ export default class Box extends Rectangle {
         this.wiggle = 0;
         this.points = 0;
         this.colors.base = this.type.colors.base;
-        this.colors.current = this.colors.base.copy();
+        this.colors.current.set(this.colors.base);
         this.colors.target = this.type.colors.target;
-        this.colors.step = this.colors.target.copy().subtract(this.colors.base).divide(this.explode);
+        this.colors.step.set(this.colors.target).subtract(this.colors.base).divide(this.explode);
     }
 
     render() {
