@@ -6,23 +6,28 @@ export default class Vector {
     setXY(x, y) {
         this.x = x;
         this.y = y;
+        return this;
     }
 
     set({ x, y }) {
         this.x = x;
         this.y = y;
+        return this;
     }
 
     add({ x, y }) {
         this.x += x;
         this.y += y;
+        return this;
     }
 
     divide(scalar) {
-        return new Vector(this.x / scalar, this.y / scalar);
+        this.x /= scalar;
+        this.y /= scalar;
+        return this;
     }
 
-    normal() {
+    normalize() {
         return this.divide(this.magnitude());
     }
 

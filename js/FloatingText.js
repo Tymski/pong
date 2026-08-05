@@ -20,7 +20,7 @@ export default class FloatingText {
         this.value = box.type.text;
         this.fontSize = box.type.fontSize;
         this.position.set(box.position);
-        this.velocity.set(box.velocity.normal());
+        this.velocity.set(box.velocity).normalize();
         this.velocity.y *= -1;
         this.velocity.y -= 1;
         this.animationFrames = 50;
