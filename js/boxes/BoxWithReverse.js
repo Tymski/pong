@@ -18,7 +18,7 @@ export default class BoxWithReverse {
         });
     }
     animation(box) {
-        box.position.y += Math.sin(0.5 * box.wiggle);
+        box.position.y += Math.sin(0.5 * box.wiggle) * deltaTime;
         box.width.current = 23;
         box.height.current = 23;
     }

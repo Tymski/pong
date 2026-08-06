@@ -21,6 +21,12 @@ export default class Vector {
         return this;
     }
 
+    add(x, y){
+        this.x += x;
+        this.y += y;
+        return this;
+    }
+
     divide(scalar) {
         this.x /= scalar;
         this.y /= scalar;

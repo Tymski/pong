@@ -42,7 +42,7 @@ export default class Interface {
     }
 
     renderTimer() {
-        var timerString = Math.floor(game.frames / 3600.0) + ':' + (Math.floor(game.frames / 60.0) % 60).toString().padStart(2, '0');
+        var timerString = Math.floor(game.time / 3600.0) + ':' + (Math.floor(game.time / 60.0) % 60).toString().padStart(2, '0');
         textoutScaled(canvas, font2, timerString, SCREEN_W - 10 - timerString.length * 15, 30, 24, this.colors.fill.makecol(), this.colors.outline.makecol(), 1);
     }
 
@@ -54,7 +54,7 @@ export default class Interface {
     update() {
         this.alpha = Math.max(this.alpha, 0);
         this.colors.box.a = Math.min(this.alpha, 255);
-        this.alpha += this.boxAlphaChange;
+        this.alpha += this.boxAlphaChange * deltaTime;
         if (this.alpha >= 1700) this.hideBoxCounter();
     }
 }

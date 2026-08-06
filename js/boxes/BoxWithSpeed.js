@@ -15,7 +15,7 @@ export default class BoxWithSpeed {
         game.clearAlpha = Math.min(255 - (254 / game.player.speed.max) * game.player.speed.current, game.clearAlpha);
     }
     animation(box) {
-        box.position.x += Math.sin(0.5 * box.wiggle);
+        box.position.x += Math.sin(0.5 * box.wiggle) * deltaTime;
         box.width.current = box.width.base + 6 * Math.abs(Math.sin(0.4 * box.wiggle));
         box.height.current = box.width.base + 6 * Math.abs(Math.sin(0.4 * box.wiggle + PI_2));
     }

@@ -23,7 +23,7 @@ export default class BoxWithBox {
         if (this.spawnedSoFar >= this.boxesToSpawn) this.probability = 0;
     }
     animation(box) {
-        box.position.y += Math.sin(0.5 * box.wiggle);
+        box.position.y += Math.sin(0.5 * box.wiggle) * deltaTime;
         box.height.current = box.width.base + 10 * Math.abs(Math.sin(0.1 * box.wiggle));
     }
 }

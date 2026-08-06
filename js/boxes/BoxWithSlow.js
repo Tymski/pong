@@ -10,6 +10,7 @@ export default class BoxWithSlow {
         this.colors.target = new Color(45, 95, 150);
         this.bouncesToGetBonus = 2;
     }
+
     bonus() {
         game.boxes.boxes.forEach((box) => {
             if (box.velocity.y > 0) {
@@ -18,11 +19,12 @@ export default class BoxWithSlow {
             box.velocity.x *= 0.1;
         });
     }
+
     animation(box) {
         box.width.current = 24;
         box.height.current = 24;
-        box.velocity.x *= 0.99;
-        if (box.velocity.y > 0) box.velocity.y *= 0.99;
-        box.position.x += Math.sin(0.1 * box.wiggle);
+        box.velocity.x *= 1 - (0.01 * deltaTime) // 0.99;
+        if (box.velocity.y > 0) box.velocity.y *= 1 - (0.01 * deltaTime) // 0.99;
+        box.position.x += Math.sin(0.1 * box.wiggle) * deltaTime;
     }
 }

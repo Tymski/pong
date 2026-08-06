@@ -2,7 +2,7 @@ export default class Pause {
     constructor() {
         this.paused = false;
         this.textSize = 35;
-        this.frames = 0;
+        this.time = 0;
     }
 
     unpauseInput() {
@@ -19,14 +19,14 @@ export default class Pause {
     }
 
     update() {
-        this.frames++;
+        this.time += deltaTime;
         if (key[KEY_P] || key[KEY_PAUSE]) {
             this.paused = true;
         }
         if (this.unpauseInput()) {
             this.paused = false;
         }
-        this.textSize = 35 + 5 * Math.sin(this.frames / 10);
+        this.textSize = 35 + 5 * Math.sin(this.time / 10);
     }
 
     render() {

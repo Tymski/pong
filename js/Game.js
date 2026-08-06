@@ -9,27 +9,33 @@ class Game {
         allegro_init_all('game_canvas', WIDTH, HEIGHT);
         window.font2 = load_font('Bullpen3D.ttf');
         this.points = 0;
-        this.frames = 0;
+        this.time = 0;
         this.player = new Player();
         this.interface = new Interface();
         this.clearAlpha = 255;
         this.fallingBoxFillAlpha = 255;
         this.boxes = new Boxes();
+        this.lastTime = performance.now();
+        this.maxDelta = 1;
     }
 
     start() {
-        this.frames = 0;
+        this.time = 0;
         this.boxes.spawn();
         this.mirrorPad = new MirrorPad();
         this.pause = new Pause();
-        window.setInterval(() => {
-            _fillstyle(canvas, makecol(255, 255, 255, this.clearAlpha));
-            canvas.context.fillRect(0, 0, canvas.w, canvas.h);
-            this.update();
-            this.render();
-        }, BPS_TO_TIMER(60));
+        requestAnimationFrame((time) => this.gameLoop(time));
         document.getElementById('game_loading').remove();
         fitGameInBody();
+    }
+
+    // Game was originally in 60 fps, so divide the ms delta time by 1000/60 which is 16.(6) ms, to scale the numbers to framerate.
+    gameLoop(currentTime) {
+        deltaTime = Math.min(currentTime - this.lastTime, 33.333333) / 16.6666667;
+        this.lastTime = currentTime;
+        this.update();
+        this.render();
+        requestAnimationFrame((time) => this.gameLoop(time));
     }
 
     update() {
@@ -38,14 +44,16 @@ class Game {
         this.player.update();
         this.mirrorPad.update();
         this.boxes.update();
-        this.frames++;
-        this.clearAlpha = Math.min(this.clearAlpha + 0.5, 255);
+        this.time += deltaTime;
+        this.clearAlpha = Math.min(this.clearAlpha + 0.5 * deltaTime, 255);
         this.clearAlpha = Math.max(this.clearAlpha, 0);
-        this.fallingBoxFillAlpha = Math.min(this.fallingBoxFillAlpha + 0.17, 255);
+        this.fallingBoxFillAlpha = Math.min(this.fallingBoxFillAlpha + 0.17 * deltaTime, 255);
         this.interface.update();
     }
 
     render() {
+        _fillstyle(canvas, makecol(255, 255, 255, this.clearAlpha));
+        canvas.context.fillRect(0, 0, canvas.w, canvas.h);
         this.boxes.render();
         this.mirrorPad.render();
         this.player.render();
@@ -54,5 +62,6 @@ class Game {
     }
 }
 
+window.deltaTime = 0.0;
 window.game = new Game();
 game.start();

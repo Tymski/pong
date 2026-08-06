@@ -14,6 +14,6 @@ export default class BoxWithMirrorPad {
         game.mirrorPad.activate();
     }
     animation(box) {
-        box.position.x += Math.sin(0.5 * box.wiggle);
+        box.position.x += Math.sin(0.5 * box.wiggle) * deltaTime;
     }
 }

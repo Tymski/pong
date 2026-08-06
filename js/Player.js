@@ -44,11 +44,11 @@ export default class Player extends Rectangle {
 
     update() {
         // Shrink (remove the expand buff)
-        this.width.current -= 0.035 + (this.width.current - this.width.base) * 0.0001;
+        this.width.current -= (0.035 + (this.width.current - this.width.base) * 0.0001) * deltaTime;
         this.width.current = Math.max(this.width.current, this.width.base);
 
         // Slow down (remove the speed buff)
-        this.speed.current = Math.max(this.speed.current - this.speed.deceleration, this.speed.base);
+        this.speed.current = Math.max(this.speed.current - this.speed.deceleration * deltaTime, this.speed.base);
         // Max speed
         this.speed.current = Math.min(this.speed.current, this.speed.max);
 
@@ -77,6 +77,6 @@ export default class Player extends Rectangle {
             this.input.mouseTarget = mouse_x / px;
         }
 
-        this.position.x += this.speed.current * horizontal;
+        this.position.x += this.speed.current * horizontal * deltaTime;
     }
 }

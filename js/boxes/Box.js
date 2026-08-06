@@ -26,11 +26,11 @@ export default class Box extends Rectangle {
         this.height.current = height;
         this.useGravity = false;
         this.gravity = 0.1;
-        this.playerCollisionCooldown = 0;
+        this.playerCollisionCooldown = 0.0;
         this.hits = 0;
         this.explode = this.type.bouncesToGetBonus;
         this.bounce = 0;
-        this.wiggle = 0;
+        this.wiggle = 0.0;
         this.points = 0;
         this.colors.base = this.type.colors.base;
         this.colors.current.set(this.colors.base);
@@ -55,11 +55,11 @@ export default class Box extends Rectangle {
 
     update() {
         if (!this.useGravity && this.active) {
-            this.position.y += 3;
+            this.position.y += 3 * deltaTime;
         } else {
-            this.position.y += this.velocity.y;
-            this.velocity.y += this.gravity;
-            this.position.x += this.velocity.x;
+            this.position.y += this.velocity.y * deltaTime;
+            this.velocity.y += this.gravity * deltaTime;
+            this.position.x += this.velocity.x * deltaTime;
         }
         this.wallsCollision();
         this.fallingOffScreen();
@@ -71,7 +71,7 @@ export default class Box extends Rectangle {
 
     wiggleAnimation() {
         if (!this.active) return;
-        this.wiggle++;
+        this.wiggle += deltaTime;
         if (this.hits >= this.explode) {
             this.type.animation(this);
         }
@@ -107,7 +107,7 @@ export default class Box extends Rectangle {
     }
 
     handleCollisionWithPlayer() {
-        this.playerCollisionCooldown--;
+        this.playerCollisionCooldown -= deltaTime;
         if (this.playerCollisionCooldown > 0) return;
         if (!this.isColliding(game.player)) return;
         if (!this.active) return;
@@ -124,7 +124,7 @@ export default class Box extends Rectangle {
     }
 
     doBounce(position) {
-        this.playerCollisionCooldown = 20;
+        this.playerCollisionCooldown = 20.0;
         this.useGravity = true;
         game.points += this.points;
         this.points++;

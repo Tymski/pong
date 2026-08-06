@@ -14,7 +14,7 @@ function points(p = 1000) {
 }
 
 function timePlus(seconds = 250) {
-    game.frames += 60 + seconds * 60;
+    game.time += 60 + seconds * 60;
 }
 
 function trail() {

@@ -32,9 +32,9 @@ export default class MirrorPad extends Rectangle {
         this.position.x = SCREEN_W - this.player.position.x;
         this.position.y = this.player.position.y + this.height.current + 3;
         if (this.bouncesLeft > 0) {
-            this.alpha = Math.min(this.alpha + 8, 255);
+            this.alpha = Math.min(this.alpha + 8 * deltaTime, 255);
         } else {
-            this.alpha = Math.max(this.alpha - 8, 0);
+            this.alpha = Math.max(this.alpha - 8 * deltaTime, 0);
         }
     }
 

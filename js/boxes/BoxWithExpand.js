@@ -10,9 +10,11 @@ export default class BoxWithExpand {
         this.colors.target = new Color(90, 90, 38);
         this.bouncesToGetBonus = 6;
     }
+
     bonus() {
         game.player.width.current += 50;
     }
+
     animation(box) {
         box.width.current = box.width.base + 10 * Math.abs(Math.sin(0.1 * box.wiggle));
     }
