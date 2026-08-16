@@ -10,9 +10,11 @@ export default class BoxWithMirrorPad {
         this.colors.target = new Color(10, 10, 10);
         this.bouncesToGetBonus = 7;
     }
+
     bonus() {
         game.mirrorPad.activate();
     }
+    
     animation(box) {
         box.position.x += Math.sin(0.5 * box.wiggle) * deltaTime;
     }

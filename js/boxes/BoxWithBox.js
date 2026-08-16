@@ -13,6 +13,7 @@ export default class BoxWithBox {
         this.spawnedSoFar = 0;
         this.probabilityDecrement = this.probability / this.boxesToSpawn;
     }
+
     bonus() {
         if (this.spawnedSoFar < this.boxesToSpawn) {
             game.boxes.spawnOneBox();
@@ -22,6 +23,7 @@ export default class BoxWithBox {
         this.probability -= this.probabilityDecrement;
         if (this.spawnedSoFar >= this.boxesToSpawn) this.probability = 0;
     }
+
     animation(box) {
         box.position.y += Math.sin(0.5 * box.wiggle) * deltaTime;
         box.height.current = box.width.base + 10 * Math.abs(Math.sin(0.1 * box.wiggle));

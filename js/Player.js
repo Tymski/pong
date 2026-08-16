@@ -60,8 +60,7 @@ export default class Player extends Rectangle {
     }
 
     handleInput() {
-        let gamepadX = getGamepadX();
-        let horizontal = gamepadX;
+        let horizontal = getGamepadX();
         if (this.input.keyboardRight()) horizontal = 1;
         if (this.input.keyboardLeft()) horizontal = -1;
         if (this.input.mousePressed() || this.input.mouseControl) {

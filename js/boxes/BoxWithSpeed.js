@@ -10,10 +10,12 @@ export default class BoxWithSpeed {
         this.colors.target = new Color(220, 40, 40);
         this.bouncesToGetBonus = 5;
     }
+
     bonus() {
         game.player.speed.current = Math.min(game.player.speed.max, game.player.speed.current + 4);
         game.clearAlpha = Math.min(255 - (254 / game.player.speed.max) * game.player.speed.current, game.clearAlpha);
     }
+    
     animation(box) {
         box.position.x += Math.sin(0.5 * box.wiggle) * deltaTime;
         box.width.current = box.width.base + 6 * Math.abs(Math.sin(0.4 * box.wiggle));

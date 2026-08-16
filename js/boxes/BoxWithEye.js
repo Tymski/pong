@@ -10,9 +10,11 @@ export default class BoxWithEye {
         this.colors.target = new Color(50, 110, 60);
         this.bouncesToGetBonus = 5;
     }
+
     bonus() {
         game.fallingBoxFillAlpha = 0;
     }
+    
     animation(box) {
         box.width.current = box.width.base + 4 * Math.abs(Math.sin(0.08 * box.wiggle));
         box.height.current = box.height.base + 4 * Math.abs(Math.sin(0.08 * box.wiggle));

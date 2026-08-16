@@ -1,5 +1,5 @@
 import Player from './Player.js';
-import Interface from './Interface.js';
+import Interface from './ui/Interface.js';
 import Boxes from './boxes/Boxes.js';
 import MirrorPad from './MirrorPad.js';
 import Pause from './Pause.js';
@@ -17,6 +17,7 @@ class Game {
         this.boxes = new Boxes();
         this.lastTime = performance.now();
         this.maxDelta = 1;
+        this.gameLoop = this.gameLoop.bind(this);
     }
 
     start() {
@@ -24,7 +25,7 @@ class Game {
         this.boxes.spawn();
         this.mirrorPad = new MirrorPad();
         this.pause = new Pause();
-        requestAnimationFrame((time) => this.gameLoop(time));
+        requestAnimationFrame(this.gameLoop);
         document.getElementById('game_loading').remove();
         fitGameInBody();
     }
@@ -35,7 +36,7 @@ class Game {
         this.lastTime = currentTime;
         this.update();
         this.render();
-        requestAnimationFrame((time) => this.gameLoop(time));
+        requestAnimationFrame(this.gameLoop);
     }
 
     update() {

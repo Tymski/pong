@@ -56,10 +56,10 @@ export default class Boxes {
     }
 
     update() {
-        this.boxes.forEach((box) => box.update());
+        for (let i = 0; i < this.boxes.length; i++) this.boxes[i].update();
     }
 
     render() {
-        this.boxes.forEach((box) => box.render());
+        for (let i = 0; i < this.boxes.length; i++) this.boxes[i].render();
     }
 }

@@ -10,9 +10,11 @@ export default class BoxWithPoints {
         this.colors.target = new Color(85, 60, 75);
         this.bouncesToGetBonus = 3;
     }
+    
     bonus() {
         game.points += 15;
     }
+    
     animation(box) {
         box.position.x += Math.sin(0.5 * box.wiggle) * deltaTime;
         box.width.current = 22;

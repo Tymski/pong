@@ -10,6 +10,7 @@ export default class BoxWithReverse {
         this.colors.target = new Color(200, 0, 230);
         this.bouncesToGetBonus = 2;
     }
+
     bonus() {
         game.boxes.boxes.forEach((box) => {
             box.velocity.x *= -1;
@@ -17,6 +18,7 @@ export default class BoxWithReverse {
             box.playerCollisionCooldown = 0;
         });
     }
+    
     animation(box) {
         box.position.y += Math.sin(0.5 * box.wiggle) * deltaTime;
         box.width.current = 23;
